@@ -1,10 +1,11 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography, CircularProgress } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/authService";
 
 export default function LoginPage() {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     const [loginData, setLoginData] = useState({
         username: '',
@@ -20,6 +21,7 @@ export default function LoginPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             const responseData = await login(loginData.username, loginData.password);
             localStorage.setItem('access_token', responseData.access_token);
@@ -28,7 +30,17 @@ export default function LoginPage() {
         } catch (error) {
             console.error("Error during login:", error);
             alert("Error al iniciar sesión");
+        } finally {
+            setLoading(false);
         }
+    }
+
+    if (loading) {
+        return (
+            <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
+                <CircularProgress size={60} />
+            </Box>
+        );
     }
 
     return (

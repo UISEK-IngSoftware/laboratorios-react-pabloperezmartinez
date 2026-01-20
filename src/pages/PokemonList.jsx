@@ -1,20 +1,32 @@
 import { useEffect, useState } from 'react';
-import { Grid } from '@mui/material';
+import { Grid, CircularProgress, Box } from '@mui/material';
 import PokemonCard from '../components/PokemonCard'
 import { fetchPokemons } from '../services/pokemonService';
 
 export default function PokemonList() {
 
   const [pokemons, setPokemons] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     fetchPokemons().then((data) => {
       setPokemons(data);
     }).catch((error) => {
       alert("Error obteniendo los pokemons");
       console.error("Error obteniendo los pokemons:", error);
+    }).finally(() => {
+      setLoading(false);
     });
   }, []);
+  
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
+        <CircularProgress size={60} />
+      </Box>
+    );
+  }
   
   return (
       <Grid container spacing={2} marginTop={2}>

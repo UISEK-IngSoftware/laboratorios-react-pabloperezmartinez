@@ -15,7 +15,7 @@ axios.interceptors.request.use((config) => {
  * @returns
  */
 export async function fetchPokemons() {
-  const response = await axios.get(`${API_BASE_URL}/pokemons`);
+  const response = await axios.get(`${API_BASE_URL}/pokemons/`);
   console.log(response);
   return response.data;
 }

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography, CircularProgress } from "@mui/material";
 import { addPokemon } from "../services/pokemonService";
 
 export default function PokemonForm() {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [pokemonData, setPokemonData] = useState({
         name: '',
         type: '',
@@ -24,6 +25,7 @@ export default function PokemonForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             const newPokemon = await addPokemon(pokemonData)
             alert("Pokemon agregado exitosamente");
@@ -32,7 +34,17 @@ export default function PokemonForm() {
         } catch (error) {
             console.error("Error al agregar el pokemon:", error);
             alert("Error al agregar el pokemon");
+        } finally {
+            setLoading(false);
         }
+    }
+
+    if (loading) {
+        return (
+            <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
+                <CircularProgress size={60} />
+            </Box>
+        );
     }
 
     return (
