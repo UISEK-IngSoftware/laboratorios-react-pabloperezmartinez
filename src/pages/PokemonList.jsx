@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Grid, CircularProgress, Box } from '@mui/material';
 import PokemonCard from '../components/PokemonCard'
 import { fetchPokemons } from '../services/pokemonService';
+import Spinner from '../components/Spinner';
 
 export default function PokemonList() {
 
@@ -22,9 +23,7 @@ export default function PokemonList() {
   
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
-        <CircularProgress size={60} />
-      </Box>
+      <Spinner />
     );
   }
   

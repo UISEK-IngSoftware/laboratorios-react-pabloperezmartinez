@@ -2,6 +2,7 @@ import { Box, Button, TextField, Typography, CircularProgress } from "@mui/mater
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/authService";
+import Spinner from "../components/Spinner";
 
 export default function LoginPage() {
     const navigate = useNavigate();
@@ -37,9 +38,7 @@ export default function LoginPage() {
 
     if (loading) {
         return (
-            <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
-                <CircularProgress size={60} />
-            </Box>
+            <Spinner />
         );
     }
 

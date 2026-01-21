@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, TextField, Typography, CircularProgress } from "@mui/material";
 import { addPokemon } from "../services/pokemonService";
+import Spinner from "../components/Spinner";
 
 export default function PokemonForm() {
     const navigate = useNavigate();
@@ -41,9 +42,7 @@ export default function PokemonForm() {
 
     if (loading) {
         return (
-            <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
-                <CircularProgress size={60} />
-            </Box>
+            <Spinner />
         );
     }
 
